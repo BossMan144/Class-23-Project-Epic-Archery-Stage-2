@@ -7,13 +7,14 @@ var engine, world;
 var canvas;
 var player, playerBase;
 var playerArcher;
+var arrow;
 
 
 
 function preload() {
-  backgroundImg = loadImage("./assets/background.png");
-  baseimage = loadImage("./assets/base.png");
-  playerimage = loadImage("./assets/player.png");
+  backgroundImg = loadImage("assets/background.png");
+  baseimage = loadImage("assets/base.png");
+  playerimage = loadImage("assets/player.png");
 }
 
 function setup() {
@@ -36,6 +37,7 @@ function setup() {
 
  playerArcher = new PlayerArcher(player.position.x +75, player.position.y +50, 100, 100);
  
+ arrow = new PlayerArrow (playerArcher.body.position.x,playerArcher.body.position.y,100,10);
 }
 
 function draw() {
@@ -44,16 +46,20 @@ function draw() {
   Engine.update(engine);
   image(baseimage,playerBase.position.x,playerBase.position.y,180,150)
   image(playerimage,player.position.x,player.position.y,50,180)
+  
+  playerArcher.display();
+  arrow.display()
+
+  if(keyCode === 32){
+    arrow.shoot(playerArcher.body.angle);
+   }
 
   // Title
   fill("#FFFF");
   textAlign("center");
   textSize(40);
   text("EPIC ARCHERY", width / 2, 100);
-
-  playerArcher.display();
 }
-
 
 
 
